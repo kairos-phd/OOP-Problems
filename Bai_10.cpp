@@ -1,4 +1,79 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <iomanip>
+
 using namespace std;
-class Time{private:int gio,phut,giay;public:Time(){gio=0;phut=0;giay=0;}void nhap(){cout<<"Nhap gio: ";cin>>gio;cout<<"Nhap phut: ";cin>>phut;cout<<"Nhap giay: ";cin>>giay;chuanHoa();}void chuanHoa(){int tong=gio*3600+phut*60+giay;tong=((tong%86400)+86400)%86400;gio=tong/3600;tong%=3600;phut=tong/60;giay=tong%60;}Time operator++(){giay++;chuanHoa();return *this;}Time operator--(){giay--;chuanHoa();return *this;}void xuat(){cout<<setfill('0')<<setw(2)<<gio<<":"<<setw(2)<<phut<<":"<<setw(2)<<giay<<setfill(' ')<<endl;}};
-int main(){Time t;t.nhap();cout<<"Thoi gian sau khi chuan hoa: ";t.xuat();++t;cout<<"Sau khi tang 1 giay: ";t.xuat();--t;cout<<"Sau khi giam 1 giay: ";t.xuat();return 0;}
+
+class Time
+{
+private:
+    int gio;
+    int phut;
+    int giay;
+
+public:
+    Time()
+    {
+        gio = 0;
+        phut = 0;
+        giay = 0;
+    }
+
+    void nhap()
+    {
+        cout << "Nhap gio: ";
+        cin >> gio;
+
+        cout << "Nhap phut: ";
+        cin >> phut;
+
+        cout << "Nhap giay: ";
+        cin >> giay;
+
+        chuanHoa();
+    }
+
+    void chuanHoa()
+    {
+        phut = phut + giay / 60;
+        giay = giay % 60;
+
+        gio = gio + phut / 60;
+        phut = phut % 60;
+
+        gio = gio % 24;
+    }
+
+    Time operator ++ ()
+    {
+        giay++;
+
+        chuanHoa();
+
+        return *this;
+    }
+
+    void xuat()
+    {
+        cout << setfill('0') << setw(2) << gio << ":"
+             << setfill('0') << setw(2) << phut << ":"
+             << setfill('0') << setw(2) << giay << endl;
+    }
+};
+
+int main()
+{
+    Time t;
+
+    cout << "Nhap thoi gian:" << endl;
+    t.nhap();
+
+    cout << "\nThoi gian ban dau: ";
+    t.xuat();
+
+    ++t;
+
+    cout << "Sau khi tang 1 giay: ";
+    t.xuat();
+
+    return 0;
+}
